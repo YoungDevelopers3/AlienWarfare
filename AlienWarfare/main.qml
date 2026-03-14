@@ -7,20 +7,6 @@ Window {
     visible: true
     title: qsTr("Alien Warfare")
 
-    Rectangle{
-        id:move
-        width:50
-        height:50
-        color:"red"
-        anchors.centerIn: parent
-
-        Text {
-            id: name
-            text: qsTr("helooo")
-        }
-
-
-    }
 
 
     Rectangle{
@@ -28,8 +14,25 @@ Window {
         width:50
         height:50
         color:"blue"
+        x:100
+        y:100
+        focus: true
 
-
+        Keys.onPressed:(event)=>
+                       {
+                           if(event.key===Qt.Key_Left){
+                               move1.x-=10;
+                           }
+                           if(event.key===Qt.Key_Right){
+                               move1.x+=10;
+                           }
+                           if(event.key===Qt.Key_Up){
+                               move1.y-=10;
+                           }
+                           if(event.key===Qt.Key_Down){
+                               move1.y+=10;
+                           }
+                       }
 
     }
 }
