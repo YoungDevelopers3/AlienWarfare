@@ -3,9 +3,51 @@
 
 #include <QObject>
 
-class Controller
+class Controller:public QObject
 {
     Q_OBJECT
+    //Q_PROPERTY Connects C++ variable to QML UI ,without it QML cannot see any C++ data
+    Q_PROPERTY(double x READ x WRITE setX NOTIFY xChanged)
+    Q_PROPERTY(double y READ y WRITE setY NOTIFY yChanged)
+
+
+
+    double x(){//getter
+        return m_x;
+    }
+
+    double y(){//getter
+        return my_y;
+    }
+
+    void setX(double value){//setter
+        if(m_x!=value){
+            m_x=value;
+            emit xChanged();//signal
+        }
+    }
+
+
+    void setY(double value){//setter
+        if(m_y!=value){
+            m_y=value;
+            emit yChanged();//signal
+        }
+    }
+
+signals://signals are the members of the class that send notification to the qml to update the UI auotmatically
+    void xChanged();
+    void yChanged();
+
+
+
+private:
+    double m_x;//current position of our rectangle on x-axis
+    double m_y;//current position of our rectangle on y-axis
+    double xSpeed;
+
+
+
 public:
     Controller();
 };
