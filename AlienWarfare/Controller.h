@@ -3,12 +3,17 @@
 
 #include <QObject>
 
-class Controller:public QObject
+class Controller:public QObject//Inheritance from the QObject class
 {
     Q_OBJECT
     //Q_PROPERTY Connects C++ variable to QML UI ,without it QML cannot see any C++ data
     Q_PROPERTY(double x READ x WRITE setX NOTIFY xChanged)
     Q_PROPERTY(double y READ y WRITE setY NOTIFY yChanged)
+
+
+public:
+    Controller(QObject* parent=nullptr);
+
 
 
 
@@ -35,6 +40,18 @@ class Controller:public QObject
         }
     }
 
+   Q_INVOKABLE void moveLeft(){//Q_INVOKABLE is used to make a C++ function callable in QML, as QML cannot call normal C++ methods
+        setX(m_x-xSpeed);
+    }
+
+    Q_INVOKABLE void moveRight(){
+        setY(m_y+xSpeed);
+    }
+
+
+
+
+
 signals://signals are the members of the class that send notification to the qml to update the UI auotmatically
     void xChanged();
     void yChanged();
@@ -48,8 +65,7 @@ private:
 
 
 
-public:
-    Controller();
+
 };
 
 #endif // CONTROLLER_H
